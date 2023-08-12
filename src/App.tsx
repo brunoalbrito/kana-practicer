@@ -39,40 +39,144 @@ const Button: React.FC<ButtonProperties> = ({
   );
 };
 
-function App() {
+function KanaOptionsComponent() {
   const [selectedOption, setSelectedOption] = useState(KanaOptions.Hiragana);
+
+  return (
+    <div className="grid grid-col-4 grid-flow-row gap-4">
+      <div className="col-span-2">
+        <Button
+          isSelected={selectedOption === KanaOptions.Hiragana}
+          onClick={() => {
+            setSelectedOption(KanaOptions.Hiragana);
+          }}
+        >
+          Practice Hiragana
+        </Button>
+      </div>
+      <div className="col-span-2">
+        <Button
+          isSelected={selectedOption === KanaOptions.Katakana}
+          onClick={() => {
+            setSelectedOption(KanaOptions.Katakana);
+          }}
+        >
+          Practice Katakana
+        </Button>
+      </div>
+      <div className="col-span-4">
+        <Button
+          isSelected={selectedOption === KanaOptions.AllKana}
+          onClick={() => setSelectedOption(KanaOptions.AllKana)}
+        >
+          Practice All Kana
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+const hiraganaArray = [
+  "あ/a",
+  "か/ka",
+  "さ/sa",
+  "た/ta",
+  "な/na",
+  "は/ha",
+  "ま/ma",
+  "や/ya",
+  "ら/ra",
+  "わ/wa",
+];
+
+const hiraganaDakutenArray = ["が/ga", "ざ/za", "だ/da", "ば/ba", "ぱ/pa"];
+
+const hiraganaCombinationsArray = [
+  "きゃ/kya",
+  "ぎゃ/gya",
+  "しゃ/sha",
+  "じゃ/ja",
+  "ちゃ/cha",
+  "ぢゃ/ja",
+  "にゃ/nya",
+  "ひゃ/hya",
+  "びゃ/bya",
+  "ぴゃ/pya",
+  "みゃ/mya",
+  "りゃ/rya",
+];
+
+function App() {
+  const [itemsSelected, setItemsSelected] = useState<Array<string>>([]);
 
   return (
     <>
       <div className="container mx-auto my-6">
-        <div className="grid grid-col-4 grid-flow-row gap-4">
-          <div className="col-span-2">
-            <Button
-              isSelected={selectedOption === KanaOptions.Hiragana}
-              onClick={() => {
-                setSelectedOption(KanaOptions.Hiragana);
-              }}
-            >
-              Practice Hiragana
-            </Button>
+        <KanaOptionsComponent />
+
+        <div className="grid grid-cols-3 grid-rows-5 gap-4">
+          <div>
+            <p className="text-4xl text-blue-500">Main Kana</p>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <Button
+                  isSelected={itemsSelected.includes("AllMainKana")}
+                  onClick={() => {
+                    const index = itemsSelected.indexOf("AllMainKana");
+                    if (index !== -1) {
+                      setItemsSelected((prevState) => {
+                          return prevState.filter((p) => p !== "AllMainKana");
+                      });
+                      return;
+                    }
+
+                    setItemsSelected([...itemsSelected, "AllMainKana"]);
+                  }}
+                >
+                  All Main Kana
+                </Button>
+              </div>
+              {hiraganaArray.map((hatakana) => {
+                return (
+                  <Button isSelected={false} onClick={() => {}}>
+                    {hatakana}
+                  </Button>
+                );
+              })}
+            </div>
           </div>
-          <div className="col-span-2">
-            <Button
-              isSelected={selectedOption === KanaOptions.Katakana}
-              onClick={() => {
-                setSelectedOption(KanaOptions.Katakana);
-              }}
-            >
-              Practice Katakana
-            </Button>
+          <div>
+            <p className="text-4xl text-blue-500">Dakuten Kana</p>
+            <div className="grid grid-cols-1 gap-4">
+              <Button isSelected={false} onClick={() => {}}>
+                All Dakuten Kana
+              </Button>
+              {hiraganaDakutenArray.map((hatakana) => {
+                return (
+                  <Button isSelected={false} onClick={() => {}}>
+                    {hatakana}
+                  </Button>
+                );
+              })}
+            </div>
           </div>
-          <div className="col-span-4">
-            <Button
-              isSelected={selectedOption === KanaOptions.AllKana}
-              onClick={() => setSelectedOption(KanaOptions.AllKana)}
-            >
-              Practice All Kana
-            </Button>
+          <div>
+            <p className="text-4xl text-blue-500">Combination Kana</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <Button isSelected={false} onClick={() => {}}>
+                  All Combination Kana
+                </Button>
+              </div>
+              {hiraganaCombinationsArray.map((hatakana) => {
+                return (
+                  <Button isSelected={false} onClick={() => {}}>
+                    {hatakana}
+                  </Button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
