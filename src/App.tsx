@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto my-6">
         <div className="grid grid-col-4 grid-flow-row gap-4">
           <div className="col-span-2">
             <Button
