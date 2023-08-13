@@ -106,8 +106,16 @@ const hiraganaCombinationsArray = [
   "りゃ/rya",
 ];
 
+enum ItemsSelectedEnum {
+  AllMainKana,
+  AllDakutenKana,
+  AllCombinationKana,
+}
+
 function App() {
-  const [itemsSelected, setItemsSelected] = useState<Array<string>>([]);
+  const [itemsSelected, setItemsSelected] = useState<Array<ItemsSelectedEnum>>(
+    []
+  );
 
   return (
     <>
@@ -121,17 +129,26 @@ function App() {
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <Button
-                  isSelected={itemsSelected.includes("AllMainKana")}
+                  isSelected={itemsSelected.includes(
+                    ItemsSelectedEnum.AllMainKana
+                  )}
                   onClick={() => {
-                    const index = itemsSelected.indexOf("AllMainKana");
+                    const index = itemsSelected.indexOf(
+                      ItemsSelectedEnum.AllMainKana
+                    );
                     if (index !== -1) {
                       setItemsSelected((prevState) => {
-                          return prevState.filter((p) => p !== "AllMainKana");
+                        return prevState.filter(
+                          (p) => p !== ItemsSelectedEnum.AllMainKana
+                        );
                       });
                       return;
                     }
 
-                    setItemsSelected([...itemsSelected, "AllMainKana"]);
+                    setItemsSelected([
+                      ...itemsSelected,
+                      ItemsSelectedEnum.AllMainKana,
+                    ]);
                   }}
                 >
                   All Main Kana
@@ -139,7 +156,13 @@ function App() {
               </div>
               {hiraganaArray.map((hatakana) => {
                 return (
-                  <Button isSelected={false} onClick={() => {}}>
+                  <Button
+                    isSelected={
+                      false ||
+                      itemsSelected.includes(ItemsSelectedEnum.AllMainKana)
+                    }
+                    onClick={() => {}}
+                  >
                     {hatakana}
                   </Button>
                 );
@@ -149,12 +172,41 @@ function App() {
           <div>
             <p className="text-4xl text-blue-500">Dakuten Kana</p>
             <div className="grid grid-cols-1 gap-4">
-              <Button isSelected={false} onClick={() => {}}>
+              <Button
+                isSelected={
+                  false ||
+                  itemsSelected.includes(ItemsSelectedEnum.AllDakutenKana)
+                }
+                onClick={() => {
+                  const index = itemsSelected.indexOf(
+                    ItemsSelectedEnum.AllDakutenKana
+                  );
+                  if (index !== -1) {
+                    setItemsSelected((prevState) => {
+                      return prevState.filter(
+                        (p) => p !== ItemsSelectedEnum.AllDakutenKana
+                      );
+                    });
+                    return;
+                  }
+
+                  setItemsSelected([
+                    ...itemsSelected,
+                    ItemsSelectedEnum.AllDakutenKana,
+                  ]);
+                }}
+              >
                 All Dakuten Kana
               </Button>
               {hiraganaDakutenArray.map((hatakana) => {
                 return (
-                  <Button isSelected={false} onClick={() => {}}>
+                  <Button
+                    isSelected={
+                      false ||
+                      itemsSelected.includes(ItemsSelectedEnum.AllDakutenKana)
+                    }
+                    onClick={() => {}}
+                  >
                     {hatakana}
                   </Button>
                 );
@@ -165,13 +217,43 @@ function App() {
             <p className="text-4xl text-blue-500">Combination Kana</p>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <Button isSelected={false} onClick={() => {}}>
+                <Button
+                  isSelected={itemsSelected.includes(
+                    ItemsSelectedEnum.AllCombinationKana
+                  )}
+                  onClick={() => {
+                    const index = itemsSelected.indexOf(
+                      ItemsSelectedEnum.AllCombinationKana
+                    );
+                    if (index !== -1) {
+                      setItemsSelected((prevState) => {
+                        return prevState.filter(
+                          (p) => p !== ItemsSelectedEnum.AllCombinationKana
+                        );
+                      });
+                      return;
+                    }
+
+                    setItemsSelected([
+                      ...itemsSelected,
+                      ItemsSelectedEnum.AllCombinationKana,
+                    ]);
+                  }}
+                >
                   All Combination Kana
                 </Button>
               </div>
               {hiraganaCombinationsArray.map((hatakana) => {
                 return (
-                  <Button isSelected={false} onClick={() => {}}>
+                  <Button
+                    isSelected={
+                      false ||
+                      itemsSelected.includes(
+                        ItemsSelectedEnum.AllCombinationKana
+                      )
+                    }
+                    onClick={() => {}}
+                  >
                     {hatakana}
                   </Button>
                 );
