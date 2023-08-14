@@ -119,12 +119,12 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto my-6">
+      <div className="container py-4 mx-auto flex flex-col gap-9">
         <KanaOptionsComponent />
 
-        <div className="grid grid-cols-3 grid-rows-5 gap-4">
-          <div>
-            <p className="text-4xl text-blue-500">Main Kana</p>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="flex flex-col gap-2">
+            <p className="text-4xl text-blue-500 text-center">Main Kana</p>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
@@ -169,8 +169,8 @@ function App() {
               })}
             </div>
           </div>
-          <div>
-            <p className="text-4xl text-blue-500">Dakuten Kana</p>
+          <div className="flex flex-col gap-2">
+            <p className="text-4xl text-blue-500 text-center">Dakuten Kana</p>
             <div className="grid grid-cols-1 gap-4">
               <Button
                 isSelected={
@@ -213,8 +213,8 @@ function App() {
               })}
             </div>
           </div>
-          <div>
-            <p className="text-4xl text-blue-500">Combination Kana</p>
+          <div className="flex flex-col gap-2">
+            <p className="text-4xl text-blue-500 text-center">Combination Kana</p>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
                 <Button
@@ -259,6 +259,14 @@ function App() {
                 );
               })}
             </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <div>
+            <Button isSelected onClick={() => {}}>
+              Start Quiz
+            </Button>
           </div>
         </div>
       </div>
